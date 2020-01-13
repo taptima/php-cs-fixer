@@ -1,7 +1,15 @@
 {
     "name": "taptima/php-cs-fixer",
     "description": "PHP-CS-Fixer for Taptima company",
-    "license": "MIT",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Mark Tertishniy",
+            "email": "m@taptima.ru",
+            "homepage": "https://taptima.ru",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": ">=7.1",
         "doctrine/inflector": "^1.0",

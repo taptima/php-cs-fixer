@@ -2,8 +2,21 @@
 
 # Installation
 
+Before you make `composer require` in your project, you must specify the path to the repository.
+To do this, add the lines in the composer.json file:
+```
+"repositories": [
+  {
+    "type": "git",
+    "url": "git@gitlab.fac.im:taptima/php-cs-fixer.git"
+  }
+]
+```
+
+After that do `composer require taptima/php-cs-fixer`.
+
 ```bash
-composer require taptima/php-cs-custom-fixer --dev
+composer require --dev taptima/php-cs-custom-fixer
 ```
 
 ### Configuration
