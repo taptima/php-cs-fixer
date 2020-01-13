@@ -1,0 +1,113 @@
+# PHP-CS-Fixer
+
+# Installation
+
+```bash
+composer require taptima/php-cs-custom-fixer --dev
+```
+
+### Configuration
+
+```php
+// .php_cs
+<?php
+
+$config = PhpCsFixer\Config::create()
+    // ...
+    ->registerCustomFixers(new Taptima\CS\Fixers())
+    // ...
+;
+
+return $config;
+```
+
+# Fixers
+
+{% for fixer in fixers %}
+
+## {{ fixer.name }}
+
+{{ fixer.doc.summary|raw }}
+
+{% if fixer.deprecated %}
+**DEPRECATED**
+{% if fixer.replacement is not empty %}
+replaced by `{{ fixer.replacement }}`.
+
+{% endif %}
+{% endif %}
+{% for sample in fixer.samples -%}
+### Configuration
+
+```php
+// .php_cs
+<?php
+
+$config = PhpCsFixer\Config::create()
+    // ...
+    ->setRules([
+        // ...
+        {% if sample.configuration  -%}
+        '{{ fixer.name }}' => {{ sample.configuration|raw }},
+        {% else -%}
+        '{{ fixer.name }}' => true,
+        {% endif -%}
+        // ...
+    ])
+    // ...
+    ->registerCustomFixers(new Taptima\CS\Fixers())
+;
+
+return $config;
+```
+
+**OR** using my [rule list builder](doc/rule-set-factory.md).
+
+```php
+// .php_cs.dist
+<?php
+
+$config = PhpCsFixer\Config::create()
+    // ...
+    ->setRules(Taptima\CS\RuleSetFactory::create()
+        {% if sample.configuration  -%}
+        ->enable('{{ fixer.name }}', {{ sample.configuration|raw }})
+        {% else -%}
+        ->enable('{{ fixer.name }}')
+        {% endif -%}
+        ->getRules()
+    ])
+    // ...
+    ->registerCustomFixers(new Taptima\CS\Fixers())
+;
+
+return $config;
+```
+
+{% if false == fixer.deprecated %}
+### Fixes
+
+```diff
+{{ sample.diff|raw }}
+```
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+# Contributions
+
+Before to create a pull request to submit your contributon, you must:
+ - run tests and be sure nothing is broken
+ - rebuilt the documentation
+
+## How to run tests
+
+```bash
+composer tests
+```
+
+## How to rebuild the documentation
+
+```bash
+tools/doc > README.md
+```

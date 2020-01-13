@@ -1,0 +1,47 @@
+{
+    "name": "taptima/php-cs-fixer",
+    "description": "PHP-CS-Fixer for Taptima company",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1",
+        "doctrine/inflector": "^1.0",
+        "friendsofphp/php-cs-fixer": "^2.16"
+    },
+    "require-dev": {
+        "webmozart/assert": "^1.3.0",
+        "twig/twig": "^2.11.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Taptima\\CS\\": "src/Taptima/CS"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "tests": [
+            "tests\\Runner::run",
+            "tests\\Orchestra::run"
+        ],
+        "php-cs-fixer": [
+            "php-cs-fixer fix --dry-run -vvv --diff"
+        ],
+        "lint": [
+            "@php-cs-fixer"
+        ]
+    }
+}
