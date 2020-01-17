@@ -104,6 +104,7 @@ final class RuleSetFactory
             'no_trailing_whitespace'      => true,
             'lowercase_keywords'          => true,
             'no_whitespace_in_blank_line' => true,
+            'blank_line_before_statement' => true,
             'no_short_echo_tag'           => true,
 
             'doctrine_annotation_braces'           => false,
