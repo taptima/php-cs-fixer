@@ -26,6 +26,28 @@ $config = PhpCsFixer\Config::create()
 return $config;
 ```
 
+You can also include the ruleset used by the Taptima company. It includes the @Symfony, @PSR and other rules to get the best codestyle result.
+@Taptima rule set can be viewed [here](https://github.com/taptima/php-cs-fixer/blob/master/src/Taptima/CS/RuleSetFactory.php#L15).
+```php
+// .php_cs
+<?php
+
+$config = PhpCsFixer\Config::create()
+    ->setRules(
+        Taptima\CS\RuleSetFactory::create([
+            '@Taptima' => true,
+            // other rules
+        ])
+        ->taptima()
+        ->getRules()
+    )
+    ->registerCustomFixers(
+        new Taptima\CS\Fixers()
+    )
+
+    return $config;
+```
+
 # Fixers
 
 
