@@ -1,7 +1,11 @@
 {
     "name": "taptima/php-cs-fixer",
-    "description": "PHP-CS-Fixer for Taptima company",
-    "license": "proprietary",
+    "description": "Taptima PHP-CS-Fixer fixers",
+    "license": "MIT",
+    "keywords": [
+        "php-cs-fixer",
+        "Code Quality"
+    ],
     "authors": [
         {
             "name": "Mark Tertishniy",
