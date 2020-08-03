@@ -53,10 +53,6 @@ final class RuleSetFactory
 
             'method_chaining_indentation' => false,
 
-            'nullable_type_declaration_for_default_null_value' => [
-                'use_nullable_type_declaration' => false,
-            ],
-
             'final_static_access'  => true,
             'self_static_accessor' => true,
 
@@ -124,6 +120,12 @@ final class RuleSetFactory
             'phpdoc_types_order'                  => [
                 'sort_algorithm'  => 'none',
                 'null_adjustment' => 'always_last',
+            ],
+
+            'nullable_type_declaration_for_default_null_value' => true,
+
+            'phpdoc_add_missing_param_annotation' => [
+                'only_untyped' => false,
             ],
         ],
     ];
