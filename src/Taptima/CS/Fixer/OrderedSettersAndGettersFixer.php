@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Taptima\CS\Fixer;
 
-use Doctrine\Common\Inflector\Inflector;
+use Doctrine\Inflector\Inflector;
+use Doctrine\Inflector\InflectorFactory;
 use PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -12,6 +13,23 @@ use Taptima\CS\Priority;
 
 final class OrderedSettersAndGettersFixer extends AbstractOrderedClassElementsFixer
 {
+    /**
+     * @var Inflector
+     */
+    public $inflector;
+
+    /**
+     * OrderedSettersAndGettersFixer constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $factory = InflectorFactory::create();
+
+        $this->inflector = $factory->build();
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -251,7 +269,7 @@ PHP;
         foreach ($this->getPropertiesNames($elements) as $name) {
             $methods = [sprintf('set%s', ucfirst($name))];
 
-            foreach ((array) Inflector::singularize($name) as $singular) {
+            foreach ((array) $this->inflector->singularize($name) as $singular) {
                 $methods[] = sprintf('add%s', ucfirst($singular));
                 $methods[] = sprintf('remove%s', ucfirst($singular));
             }

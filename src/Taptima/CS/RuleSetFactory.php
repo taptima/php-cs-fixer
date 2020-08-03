@@ -131,6 +131,14 @@ final class RuleSetFactory
     ];
 
     /**
+     * @const array
+     */
+    private const RISKY_DEFINITION = [
+        'phpdoc_to_param_type' => true,
+        'void_return' => true,
+    ];
+
+    /**
      * @var array[]
      */
     private $rules;
@@ -322,10 +330,25 @@ final class RuleSetFactory
 
         ksort($rules);
 
-        return self::create(array_merge(
+        $this->rules = array_merge(
             $this->rules,
             $rules
-        ));
+        );
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function taptimaRisky()
+    {
+        $this->rules = array_merge(
+            $this->rules,
+            self::RISKY_DEFINITION
+        );
+
+        return $this;
     }
 
     /**
