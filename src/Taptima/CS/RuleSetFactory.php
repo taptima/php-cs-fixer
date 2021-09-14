@@ -53,7 +53,6 @@ final class RuleSetFactory
 
             'method_chaining_indentation' => false,
 
-            'final_static_access'  => true,
             'self_static_accessor' => true,
 
             'ternary_to_null_coalescing' => true,
@@ -101,7 +100,7 @@ final class RuleSetFactory
             'lowercase_keywords'          => true,
             'no_whitespace_in_blank_line' => true,
             'blank_line_before_statement' => true,
-            'no_short_echo_tag'           => true,
+            'echo_tag_syntax'             => true,
 
             'doctrine_annotation_braces'           => false,
             'doctrine_annotation_array_assignment' => [
