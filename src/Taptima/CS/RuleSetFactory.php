@@ -135,7 +135,7 @@ final class RuleSetFactory
      */
     private const RISKY_DEFINITION = [
         'phpdoc_to_param_type' => true,
-        'void_return' => true,
+        'void_return'          => true,
     ];
 
     /**

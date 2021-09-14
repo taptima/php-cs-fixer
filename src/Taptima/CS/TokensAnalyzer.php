@@ -124,14 +124,17 @@ final class TokensAnalyzer
                     $index = $this->getClosingParenthesis($index);
 
                     break;
+
                 case $this->tokens[$index]->equals('['):
                     $index = $this->getClosingBracket($index);
 
                     break;
+
                 case $this->tokens[$index]->equals('{'):
                     $index = $this->getClosingCurlyBracket($index);
 
                     break;
+
                 case $this->tokens[$index]->equals(';'):
                     return;
             }
@@ -159,10 +162,12 @@ final class TokensAnalyzer
                     $index = $this->getClosingParenthesis($index);
 
                     break;
+
                 case $this->tokens[$index]->equals('['):
                     $index = $this->getClosingBracket($index);
 
                     break;
+
                 case $this->tokens[$index]->equals('{'):
                     $index = $this->getClosingCurlyBracket($index);
 
@@ -294,10 +299,12 @@ final class TokensAnalyzer
                     $index = $this->getClosingParenthesis($index);
 
                     break;
+
                 case $this->tokens[$index]->equals('['):
                     $index = $this->getClosingBracket($index);
 
                     break;
+
                 case $this->tokens[$index]->equals('{'):
                     $index = $this->getClosingCurlyBracket($index);
 
@@ -311,7 +318,7 @@ final class TokensAnalyzer
     /**
      * @param int $index
      *
-     * @return int | null
+     * @return int|null
      */
     public function getClosingParenthesis($index)
     {
@@ -339,7 +346,7 @@ final class TokensAnalyzer
     /**
      * @param int $index
      *
-     * @return int | null
+     * @return int|null
      */
     public function getClosingBracket($index)
     {
@@ -367,7 +374,7 @@ final class TokensAnalyzer
     /**
      * @param int $index
      *
-     * @return int | null
+     * @return int|null
      */
     public function getClosingCurlyBracket($index)
     {
@@ -528,6 +535,7 @@ final class TokensAnalyzer
                         $element['methodName'] = $this->tokens[$this->tokens->getNextMeaningfulToken($i)]->getContent();
 
                         break;
+
                     case 'property':
                         $element['propertyName'] = $token->getContent();
 

@@ -14,7 +14,7 @@ composer require --dev taptima/php-cs-fixer dev-master
 ### Configuration
 
 ```php
-// .php_cs
+// .php-cs-fixer.php
 <?php
 
 $config = PhpCsFixer\Config::create()
@@ -29,7 +29,7 @@ return $config;
 You can also include the ruleset used by the Taptima company. It includes the @Symfony, @PSR and other rules to get the best codestyle result.
 @Taptima rule set can be viewed [here](https://github.com/taptima/php-cs-fixer/blob/master/src/Taptima/CS/RuleSetFactory.php#L15).
 ```php
-// .php_cs
+// .php-cs-fixer.php
 <?php
 
 $config = PhpCsFixer\Config::create()
@@ -58,7 +58,7 @@ Remove useless getDescription(), up(), down() and comments from Doctrine\Migrati
 ### Configuration
 
 ```php
-// .php_cs
+// .php-cs-fixer.php
 <?php
 
 $config = PhpCsFixer\Config::create()
@@ -78,7 +78,7 @@ return $config;
 **OR** using my [rule list builder](doc/rule-set-factory.md).
 
 ```php
-// .php_cs.dist
+// .php-cs-fixer.php.dist
 <?php
 
 $config = PhpCsFixer\Config::create()
@@ -134,7 +134,7 @@ return $config;
 ### Configuration
 
 ```php
-// .php_cs
+// .php-cs-fixer.php
 <?php
 
 $config = PhpCsFixer\Config::create()
@@ -154,7 +154,7 @@ return $config;
 **OR** using my [rule list builder](doc/rule-set-factory.md).
 
 ```php
-// .php_cs.dist
+// .php-cs-fixer.php.dist
 <?php
 
 $config = PhpCsFixer\Config::create()
@@ -215,7 +215,7 @@ Class/interface/trait setters and getters MUST BE ordered (order is setter, isse
 ### Configuration
 
 ```php
-// .php_cs
+// .php-cs-fixer.php
 <?php
 
 $config = PhpCsFixer\Config::create()
@@ -235,7 +235,7 @@ return $config;
 **OR** using my [rule list builder](doc/rule-set-factory.md).
 
 ```php
-// .php_cs.dist
+// .php-cs-fixer.php.dist
 <?php
 
 $config = PhpCsFixer\Config::create()
