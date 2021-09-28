@@ -12,6 +12,13 @@ use Taptima\CS\AbstractFixer;
 abstract class AbstractOrderedClassElementsFixer extends AbstractFixer
 {
     /**
+     * @param array[] $elements
+     *
+     * @return array[]
+     */
+    abstract protected function sortElements(array $elements);
+
+    /**
      * {@inheritdoc}
      */
     protected function applyFix(SplFileInfo $file, Tokens $tokens): void
@@ -39,13 +46,6 @@ abstract class AbstractOrderedClassElementsFixer extends AbstractFixer
             $i = $endIndex;
         }
     }
-
-    /**
-     * @param array[] $elements
-     *
-     * @return array[]
-     */
-    abstract protected function sortElements(array $elements);
 
     /**
      * @param int $startIndex
