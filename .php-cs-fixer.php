@@ -14,10 +14,16 @@ $config
         '@PhpCsFixer'         => true,
         '@PHP71Migration'     => true,
 
-        'blank_line_after_namespace'  => true,
-        'single_import_per_statement' => true,
-        'single_line_after_imports'   => true,
-        'no_unused_imports'           => true,
+        'blank_line_after_namespace'       => true,
+        'single_import_per_statement'      => true,
+        'single_line_after_imports'        => true,
+        'no_unused_imports'                => true,
+        'clean_namespace'                  => true,
+        'lambda_not_used_import'           => true,
+        'switch_continue_to_break'         => true,
+        'no_alias_language_construct_call' => true,
+        'single_space_after_construct'     => true,
+        'operator_linebreak'               => true,
 
         'ordered_imports'         => true,
         'global_namespace_import' => true,
@@ -38,8 +44,12 @@ $config
                 'destruct',
                 'magic',
                 'phpunit',
+                'method_public_abstract',
+                'method_public_abstract_static',
                 'method_public_static',
                 'method_public',
+                'method_protected_abstract',
+                'method_protected_abstract_static',
                 'method_protected_static',
                 'method_protected',
                 'method_private_static',
@@ -118,6 +128,15 @@ $config
         'phpdoc_types_order'                  => [
             'sort_algorithm'  => 'none',
             'null_adjustment' => 'always_last',
+        ],
+        'phpdoc_order_by_value' => [
+            'annotations' => [
+                'method',
+                'throws',
+                'author',
+                'property',
+                'internal',
+            ],
         ],
     ])
     ->setUsingCache(true)

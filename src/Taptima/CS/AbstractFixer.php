@@ -13,6 +13,16 @@ use PhpCsFixer\Tokenizer\Tokens;
 abstract class AbstractFixer extends PhpCsFixer
 {
     /**
+     * @return string
+     */
+    abstract public function getSampleCode();
+
+    /**
+     * @return string
+     */
+    abstract public function getDocumentation();
+
+    /**
      * {@inheritdoc}
      */
     public function isCandidate(Tokens $tokens)
@@ -37,16 +47,6 @@ abstract class AbstractFixer extends PhpCsFixer
             [],
         ];
     }
-
-    /**
-     * @return string
-     */
-    abstract public function getSampleCode();
-
-    /**
-     * @return string
-     */
-    abstract public function getDocumentation();
 
     /**
      * {@inheritdoc}
