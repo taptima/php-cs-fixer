@@ -33,7 +33,7 @@ final class OrderedSettersAndGettersFixer extends AbstractOrderedClassElementsFi
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound(Token::getClassyTokenKinds());
     }
@@ -41,7 +41,7 @@ final class OrderedSettersAndGettersFixer extends AbstractOrderedClassElementsFi
     /**
      * {@inheritdoc}
      */
-    public function getPriority()
+    public function getPriority(): int
     {
         return Priority::before(OrderedClassElementsFixer::class);
     }
@@ -49,7 +49,7 @@ final class OrderedSettersAndGettersFixer extends AbstractOrderedClassElementsFi
     /**
      * {@inheritdoc}
      */
-    public function getDocumentation()
+    public function getDocumentation(): string
     {
         return 'Class/interface/trait setters and getters MUST BE ordered (order is setter, isser, hasser, adder, remover, getter).';
     }
@@ -57,7 +57,7 @@ final class OrderedSettersAndGettersFixer extends AbstractOrderedClassElementsFi
     /**
      * {@inheritdoc}
      */
-    public function getSampleCode()
+    public function getSampleCode(): string
     {
         return <<<'PHP'
 <?php

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace tests;
 
 use Exception;
-use PhpCsFixer\Diff\v3_0\Differ;
+use PhpCsFixer\Diff\Differ;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
@@ -18,7 +18,7 @@ final class Runner
         $deprecations = [];
 
         set_error_handler(
-            function ($type, $message, $file, $line) use (&$deprecations): void {
+            static function ($type, $message, $file, $line) use (&$deprecations): void {
                 $deprecations[$message][] = sprintf('%s at line %d', $file, $line);
                 $deprecations[$message] = array_unique($deprecations[$message]);
 

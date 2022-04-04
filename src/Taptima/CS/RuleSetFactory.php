@@ -181,7 +181,7 @@ final class RuleSetFactory
      *
      * @return RuleSetFactory
      */
-    public static function create(array $rules = [])
+    public static function create(array $rules = []): RuleSetFactory
     {
         return new self($rules);
     }
@@ -189,7 +189,7 @@ final class RuleSetFactory
     /**
      * @return array
      */
-    public function getRules()
+    public function getRules(): array
     {
         $rules = $this->rules;
 
@@ -201,7 +201,7 @@ final class RuleSetFactory
     /**
      * @return RuleSetFactory
      */
-    public function psr0()
+    public function psr0(): RuleSetFactory
     {
         return self::create(array_merge(
             $this->rules,
@@ -212,7 +212,7 @@ final class RuleSetFactory
     /**
      * @return RuleSetFactory
      */
-    public function psr1()
+    public function psr1(): RuleSetFactory
     {
         return self::create(array_merge(
             $this->rules,
@@ -223,7 +223,7 @@ final class RuleSetFactory
     /**
      * @return RuleSetFactory
      */
-    public function psr2()
+    public function psr2(): RuleSetFactory
     {
         return self::create(array_merge(
             $this->rules,
@@ -234,7 +234,7 @@ final class RuleSetFactory
     /**
      * @return RuleSetFactory
      */
-    public function psr4()
+    public function psr4(): RuleSetFactory
     {
         return self::create(array_merge(
             $this->rules,
@@ -247,7 +247,7 @@ final class RuleSetFactory
      *
      * @return RuleSetFactory
      */
-    public function symfony($risky = false)
+    public function symfony(bool $risky = false): RuleSetFactory
     {
         $rules = ['@Symfony' => true];
 
@@ -266,7 +266,7 @@ final class RuleSetFactory
      *
      * @return RuleSetFactory
      */
-    public function phpCsFixer($risky = false)
+    public function phpCsFixer(bool $risky = false): RuleSetFactory
     {
         $rules = ['@PhpCsFixer' => true];
 
@@ -283,7 +283,7 @@ final class RuleSetFactory
     /**
      * @return RuleSetFactory
      */
-    public function doctrineAnnotation()
+    public function doctrineAnnotation(): RuleSetFactory
     {
         return self::create(array_merge(
             $this->rules,
@@ -293,11 +293,11 @@ final class RuleSetFactory
 
     /**
      * @param float|string $version
-     * @param bool         $risky
+     * @param bool $risky
      *
      * @return RuleSetFactory
      */
-    public function php($version, $risky = false)
+    public function php(float|string $version, bool $risky = false): RuleSetFactory
     {
         $config = $this->migration('php', $version, $risky)->getRules();
 
@@ -320,11 +320,11 @@ final class RuleSetFactory
 
     /**
      * @param float $version
-     * @param bool  $risky
+     * @param bool $risky
      *
      * @return RuleSetFactory
      */
-    public function phpUnit($version, $risky = false)
+    public function phpUnit(float $version, bool $risky = false): RuleSetFactory
     {
         return $this->migration('phpunit', $version, $risky);
     }
@@ -334,7 +334,7 @@ final class RuleSetFactory
      *
      * @return RuleSetFactory
      */
-    public function taptima($risky = false)
+    public function taptima(bool $risky = false): RuleSetFactory
     {
         $rules = [];
 
@@ -359,7 +359,7 @@ final class RuleSetFactory
     /**
      * @return $this
      */
-    public function taptimaRisky()
+    public function taptimaRisky(): RuleSetFactory
     {
         $this->rules = array_merge(
             $this->rules,
@@ -374,7 +374,7 @@ final class RuleSetFactory
      *
      * @return RuleSetFactory
      */
-    public function enable($name, array $config = null)
+    public function enable($name, array $config = null): RuleSetFactory
     {
         return self::create(array_merge(
             $this->rules,
@@ -387,7 +387,7 @@ final class RuleSetFactory
      *
      * @return RuleSetFactory
      */
-    public function disable($name)
+    public function disable(string $name): RuleSetFactory
     {
         return self::create(array_merge(
             $this->rules,
@@ -397,17 +397,17 @@ final class RuleSetFactory
 
     /**
      * @param string $package
-     * @param float  $version
-     * @param bool   $risky
+     * @param float $version
+     * @param bool $risky
      *
      * @return RuleSetFactory
      */
-    private function migration($package, $version, $risky)
+    private function migration(string $package, float $version, bool $risky): RuleSetFactory
     {
         $rules = (new RuleSet())->getSetDefinitionNames();
         $rules = array_combine($rules, $rules);
 
-        $rules = array_map(function ($name) {
+        $rules = array_map(static function ($name) {
             $matches = [];
 
             preg_match('/^@([A-Za-z]+)(\d+)Migration(:risky|)$/', $name, $matches);
@@ -417,19 +417,19 @@ final class RuleSetFactory
 
         $rules = array_filter($rules);
 
-        $rules = array_filter($rules, function ($versionAndRisky) use ($package) {
+        $rules = array_filter($rules, static function ($versionAndRisky) use ($package) {
             [$rule, $rulePackage, $ruleVersion, $ruleRisky] = $versionAndRisky;
 
             return strtoupper($package) === strtoupper($rulePackage);
         });
 
-        $rules = array_filter($rules, function ($versionAndRisky) use ($version) {
+        $rules = array_filter($rules, static function ($versionAndRisky) use ($version) {
             [$rule, $rulePackage, $ruleVersion, $ruleRisky] = $versionAndRisky;
 
             return ((float) $ruleVersion / 10) <= $version;
         });
 
-        $rules = array_filter($rules, function ($versionAndRisky) use ($risky) {
+        $rules = array_filter($rules, static function ($versionAndRisky) use ($risky) {
             [$rule, $rulePackage, $ruleVersion, $ruleRisky] = $versionAndRisky;
 
             if ($risky) {
@@ -441,7 +441,7 @@ final class RuleSetFactory
 
         return self::create(array_merge(
             $this->rules,
-            array_map(function () {
+            array_map(static function () {
                 return true;
             }, $rules)
         ));

@@ -38,7 +38,7 @@ final class TokensAnalyzer
      *
      * @return array
      */
-    public function getMethodArguments($index)
+    public function getMethodArguments(int $index): array
     {
         $methodName       = $this->tokens->getNextMeaningfulToken($index);
         $openParenthesis  = $this->tokens->getNextMeaningfulToken($methodName);
@@ -100,7 +100,7 @@ final class TokensAnalyzer
      *
      * @return int
      */
-    public function getNumberOfArguments($index)
+    public function getNumberOfArguments(int $index): int
     {
         return \count($this->getMethodArguments($index));
     }
@@ -110,7 +110,7 @@ final class TokensAnalyzer
      *
      * @return int|null
      */
-    public function getNextComma($index)
+    public function getNextComma(int $index)
     {
         do {
             $index = $this->tokens->getNextMeaningfulToken($index);
@@ -148,7 +148,7 @@ final class TokensAnalyzer
      *
      * @return int|null
      */
-    public function getNextSemiColon($index)
+    public function getNextSemiColon(int $index)
     {
         do {
             $index = $this->tokens->getNextMeaningfulToken($index);
@@ -183,7 +183,7 @@ final class TokensAnalyzer
      *
      * @return array|string|null
      */
-    public function getReturnedType($index)
+    public function getReturnedType(int $index)
     {
         if ($this->tokens[$index]->isGivenKind(T_FUNCTION) === false) {
             throw new Exception(sprintf('Expected token: T_FUNCTION Token %d id contains %s.', $index, $this->tokens[$index]->getContent()));
@@ -583,12 +583,12 @@ final class TokensAnalyzer
         }
 
         if (
-        $nameToken->equalsAny([
-            [T_STRING, 'setUpBeforeClass'],
-            [T_STRING, 'tearDownAfterClass'],
-            [T_STRING, 'setUp'],
-            [T_STRING, 'tearDown'],
-        ], false)
+            $nameToken->equalsAny([
+                [T_STRING, 'setUpBeforeClass'],
+                [T_STRING, 'tearDownAfterClass'],
+                [T_STRING, 'setUp'],
+                [T_STRING, 'tearDown'],
+            ], false)
         ) {
             return ['phpunit', mb_strtolower($nameToken->getContent())];
         }

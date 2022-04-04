@@ -15,10 +15,10 @@ final class Priority
      *
      * @return int
      */
-    public static function before(...$classes)
+    public static function before(...$classes): int
     {
         $priorities = array_map(
-            function ($class) {
+            static function ($class) {
                 return (new $class())->getPriority();
             },
             $classes
@@ -32,10 +32,10 @@ final class Priority
      *
      * @return int
      */
-    public static function after(...$classes)
+    public static function after(...$classes): int
     {
         $priorities = array_map(
-            function ($class) {
+            static function ($class) {
                 return (new $class())->getPriority();
             },
             $classes

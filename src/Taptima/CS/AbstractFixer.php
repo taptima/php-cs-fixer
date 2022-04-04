@@ -7,6 +7,7 @@ namespace Taptima\CS;
 use PhpCsFixer\AbstractFixer as PhpCsFixer;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
@@ -15,17 +16,17 @@ abstract class AbstractFixer extends PhpCsFixer
     /**
      * @return string
      */
-    abstract public function getSampleCode();
+    abstract public function getSampleCode(): string;
 
     /**
      * @return string
      */
-    abstract public function getDocumentation();
+    abstract public function getDocumentation(): string;
 
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(Tokens $tokens): bool
     {
         return true;
     }
@@ -33,7 +34,7 @@ abstract class AbstractFixer extends PhpCsFixer
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return sprintf('Taptima/%s', parent::getName());
     }
@@ -41,7 +42,7 @@ abstract class AbstractFixer extends PhpCsFixer
     /**
      * @return array[]
      */
-    public function getSampleConfigurations()
+    public function getSampleConfigurations(): array
     {
         return [
             [],
@@ -51,7 +52,7 @@ abstract class AbstractFixer extends PhpCsFixer
     /**
      * {@inheritdoc}
      */
-    public function getDefinition()
+    public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
             $this->getDocumentation(),
@@ -67,7 +68,7 @@ abstract class AbstractFixer extends PhpCsFixer
     /**
      * @return bool
      */
-    public function isDeprecated()
+    public function isDeprecated(): bool
     {
         return false;
     }
@@ -80,19 +81,22 @@ abstract class AbstractFixer extends PhpCsFixer
     }
 
     /**
+     * @param Tokens $tokens
+     *
      * @return TokensAnalyzer
      */
-    protected function analyze(Tokens $tokens)
+    protected function analyze(Tokens $tokens): TokensAnalyzer
     {
         return new TokensAnalyzer($tokens);
     }
 
     /**
+     * @param Tokens $tokens
      * @param string|string[] $fqcn
      *
      * @return bool
      */
-    protected function hasUseStatements(Tokens $tokens, $fqcn)
+    protected function hasUseStatements(Tokens $tokens, array|string $fqcn): bool
     {
         return $this->getUseStatements($tokens, $fqcn) !== null;
     }
@@ -102,7 +106,7 @@ abstract class AbstractFixer extends PhpCsFixer
      *
      * @return array|null
      */
-    protected function getUseStatements(Tokens $tokens, $fqcn)
+    protected function getUseStatements(Tokens $tokens, array|string $fqcn): ?array
     {
         if (\is_array($fqcn) === false) {
             $fqcn = explode('\\', $fqcn);
@@ -120,11 +124,12 @@ abstract class AbstractFixer extends PhpCsFixer
     }
 
     /**
+     * @param Tokens $tokens
      * @param string|string[] $fqcn
      *
      * @return bool
      */
-    protected function extendsClass(Tokens $tokens, $fqcn)
+    protected function extendsClass(Tokens $tokens, array|string $fqcn): bool
     {
         if (\is_array($fqcn) === false) {
             $fqcn = explode('\\', $fqcn);
@@ -135,19 +140,20 @@ abstract class AbstractFixer extends PhpCsFixer
         }
 
         return $tokens->findSequence([
-            [T_CLASS],
-            [T_STRING],
-            [T_EXTENDS],
-            [T_STRING, array_pop($fqcn)],
-        ]) !== null;
+                [T_CLASS],
+                [T_STRING],
+                [T_EXTENDS],
+                [T_STRING, array_pop($fqcn)],
+            ]) !== null;
     }
 
     /**
+     * @param Tokens $tokens
      * @param string|string[] $fqcn
      *
      * @return bool
      */
-    protected function implementsInterface(Tokens $tokens, $fqcn)
+    protected function implementsInterface(Tokens $tokens, array|string $fqcn): bool
     {
         if (\is_array($fqcn) === false) {
             $fqcn = explode('\\', $fqcn);
@@ -158,11 +164,11 @@ abstract class AbstractFixer extends PhpCsFixer
         }
 
         return $tokens->findSequence([
-            [T_CLASS],
-            [T_STRING],
-            [T_IMPLEMENTS],
-            [T_STRING, array_pop($fqcn)],
-        ]) !== null;
+                [T_CLASS],
+                [T_STRING],
+                [T_IMPLEMENTS],
+                [T_STRING, array_pop($fqcn)],
+            ]) !== null;
     }
 
     /**
@@ -170,7 +176,7 @@ abstract class AbstractFixer extends PhpCsFixer
      *
      * @return Token[]
      */
-    protected function getComments(Tokens $tokens)
+    protected function getComments(Tokens $tokens): array
     {
         $comments = [];
 

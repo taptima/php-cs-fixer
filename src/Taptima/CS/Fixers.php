@@ -7,6 +7,7 @@ namespace Taptima\CS;
 use IteratorAggregate;
 use PhpCsFixer\Fixer\FixerInterface;
 use ReflectionClass;
+use ReturnTypeWillChange;
 use Symfony\Component\Finder\Finder;
 use Throwable;
 
@@ -25,7 +26,7 @@ final class Fixers implements IteratorAggregate
         ;
 
         $files = array_map(
-            function ($file) {
+            static function ($file) {
                 return $file->getPathname();
             },
             iterator_to_array($finder)

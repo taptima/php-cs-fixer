@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Taptima\CS\Fixer;
 
 use PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer;
-use PhpCsFixer\Fixer\ConfigurationDefinitionFixerInterface;
+use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer;
 use PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
+use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -16,9 +17,9 @@ use SplFileInfo;
 use Taptima\CS\AbstractFixer;
 use Taptima\CS\Priority;
 
-final class DoctrineMigrationsFixer extends AbstractFixer implements ConfigurationDefinitionFixerInterface
+final class DoctrineMigrationsFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
-    public function getSampleConfigurations()
+    public function getSampleConfigurations(): array
     {
         return [
             null,
@@ -29,7 +30,7 @@ final class DoctrineMigrationsFixer extends AbstractFixer implements Configurati
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(Tokens $tokens): bool
     {
         foreach ($this->configuration['instanceof'] as $parent) {
             if ($this->extendsClass($tokens, $parent)) {
@@ -47,7 +48,7 @@ final class DoctrineMigrationsFixer extends AbstractFixer implements Configurati
     /**
      * {@inheritdoc}
      */
-    public function getSampleCode()
+    public function getSampleCode(): string
     {
         return <<<'SPEC'
 <?php
@@ -88,12 +89,12 @@ final class Version20190323095102 extends AbstractMigration
 SPEC;
     }
 
-    public function getDocumentation()
+    public function getDocumentation(): string
     {
         return 'Remove useless getDescription(), up(), down() and comments from Doctrine\Migrations\AbstractMigration if needed.';
     }
 
-    public function getPriority()
+    public function getPriority(): int
     {
         return Priority::before(ClassAttributesSeparationFixer::class, NoEmptyPhpdocFixer::class, NoExtraBlankLinesFixer::class);
     }
@@ -101,7 +102,7 @@ SPEC;
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
             (new FixerOptionBuilder('instanceof', 'Parent classes of your migration classes.'))
