@@ -16,7 +16,7 @@ final class RuleSetFactory
             '@Symfony'            => true,
             '@DoctrineAnnotation' => true,
             '@PhpCsFixer'         => true,
-            '@PHP71Migration'     => true,
+            '@PHP81Migration'     => true,
 
             'blank_line_after_namespace'       => true,
             'single_import_per_statement'      => true,
@@ -111,6 +111,13 @@ final class RuleSetFactory
             'no_whitespace_in_blank_line' => true,
             'blank_line_before_statement' => true,
             'echo_tag_syntax'             => true,
+
+            'trailing_comma_in_multiline' => [
+                'after_heredoc' => true,
+                'elements' => [
+                    'arrays', 'arguments', 'parameters'
+                ]
+            ],
 
             'doctrine_annotation_braces'           => false,
             'doctrine_annotation_array_assignment' => [
