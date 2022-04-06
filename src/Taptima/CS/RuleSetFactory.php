@@ -18,6 +18,10 @@ final class RuleSetFactory
             '@PhpCsFixer'         => true,
             '@PHP81Migration'     => true,
 
+            'assign_null_coalescing_to_coalesce_equal'      => true,
+            'no_trailing_comma_in_singleline_function_call' => true,
+
+            'class_reference_name_casing'      => true,
             'blank_line_after_namespace'       => true,
             'single_import_per_statement'      => true,
             'single_line_after_imports'        => true,
@@ -28,6 +32,15 @@ final class RuleSetFactory
             'no_alias_language_construct_call' => true,
             'single_space_after_construct'     => true,
             'operator_linebreak'               => true,
+            'empty_loop_condition'             => true,
+            'no_space_around_double_colon'     => true,
+            'no_unneeded_import_alias'         => true,
+            'single_line_comment_spacing'      => true,
+            'types_spaces'                     => true,
+
+            'empty_loop_body' => [
+                'style' => 'braces',
+            ],
 
             'ordered_imports'         => true,
             'global_namespace_import' => true,
@@ -161,6 +174,7 @@ final class RuleSetFactory
     private const RISKY_DEFINITION = [
         'phpdoc_to_param_type' => true,
         'void_return'          => true,
+        'modernize_strpos'     => true,
     ];
 
     /**
